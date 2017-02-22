@@ -1,0 +1,19 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>New Post</h1>
+
+      <p class="text-danger"><%= @post.errors.full_messages.join(', ') %></p>
+      <%= form_for @post do |f| %>
+        <%= f.label :title %><br>
+        <%= f.text_field :title %>
+        <hr>
+        <%= f.label :body %><br>
+        <%= f.text_area :body %>
+        <hr>
+        <%= submit_tag 'Submit post' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

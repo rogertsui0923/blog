@@ -1,0 +1,74 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-push-1">
+      <h1><%= @post.title %></h1>
+    </div>
+  </div>
+
+  <div class="row">
+      <%= image_tag "flower.jpg", class: "img-responsive", style: "width:100%" %>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-push-1">
+      <p><%= @post.body %></p>
+      <p class="visible-xs text-right"><%= @post.created_at %></p>
+      <div class="visible-xs" style="font-size:20px">
+        <span><a href="#">
+          <i class="fa fa-heart" role="button" aria-hidden="true"></i>
+        </a> 123 </span>
+        <span class="pull-right"><a href="#">
+          <i class="fa fa-bookmark" role="button" aria-hidden="true"></i>
+        </a></span>
+      </div>
+      <p>
+        <%= @category.name %>
+        <span class="pull-right hidden-xs"><%= @post.created_at %></span>
+      </p>
+      <div class="media">
+        <div class="media-left">
+          <%= image_tag("flower.jpg", style: "width:100px") %>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">Roger Tsui</h4>
+          <p>Roger Tsui is the author of all of these posts. At least until we
+             implement the author column of the Post table. Which will probably
+             happen at some point in the near future, so I might as well just
+             implement it now, or I could do it later?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-push-2">
+      <h3>Leave a comment...</h3>
+      <p class="text-danger"><%= @comment.errors.full_messages.join(', ') %></p>
+      <%= form_for [@post, @comment] do |f| %>
+        <%= f.text_area :body %>
+        <br>
+        <label for="author">Comment Author</label>
+        <input type="text" name="author" value="">
+        <br>
+        <%= submit_tag 'Comment' %>
+      <% end %>
+      <hr>
+      <% for comment in @post.comments do %>
+        <div class="media">
+          <div class="media-left">
+            <%= image_tag("flower.jpg", style: "width:100px") %>
+          </div>
+          <div class="media-body">
+            <p><%= comment.body%></p>
+          </div>
+          <div class="media-bottom">
+            <p>
+              Roger Tsui
+              <span class="pull-right"><%= comment.created_at %></span>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

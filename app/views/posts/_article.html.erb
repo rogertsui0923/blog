@@ -1,0 +1,16 @@
+<div class="thumbnail">
+  <%= link_to image_tag("flower.jpg"), post_path(post.id) %>
+  <div style="font-size:20px">
+    <span><a href="#">
+      <i class="fa fa-heart" role="button" aria-hidden="true"></i>
+    </a> 123 </span>
+    <span class="pull-right"><a href="#">
+      <i class="fa fa-bookmark" role="button" aria-hidden="true"></i>
+    </a></span>
+  </div>
+  <h3><%= link_to post.title, post_path(post.id) %></h3>
+  <p><%= post.body[0..50] %>...</p>
+  <br>
+  <p><a href="#">Roger Tsui</a></p>
+  <p><%= post.created_at %></p>
+</div>

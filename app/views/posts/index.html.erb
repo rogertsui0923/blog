@@ -1,0 +1,29 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8">
+      <%= render partial: 'article', locals: {post: @posts[0]} if @posts.length > 0 %>
+    </div>
+    <div class="col-sm-4 hidden-xs">
+      <h1>Most Liked</h1>
+      <ul class="list-unstyled">
+        <% 10.times do %>
+          <li><a href="#">This is a link!</a></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <% for i in 1..(@posts.length - 1) do %>
+      <div class="col-xs-12 col-sm-4">
+        <%= render partial: 'article', locals: {post: @posts[i]} %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-12 hidden-xs text-center">
+      <a href="#"><h3>More Articles</h3></a>
+    </div>
+  </div>
+</div>
