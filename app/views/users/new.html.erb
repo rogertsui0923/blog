@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-10 col-xs-push-1 col-sm-6 col-sm-push-3">
+      <div class="text-center">
+        <h1>Create an Account</h1>
+      </div>
+
+      <p class="text-danger"><%= @user.errors.full_messages.join(', ') %></p>
+      <%= form_for @user do |f| %>
+        <div class="form-group">
+          <%= f.label :first_name %>
+          <%= f.text_field :first_name, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.text_field :email, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password %>
+          <%= f.password_field :password, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, class: "form-control" %>
+        </div>
+        <div class="text-center">
+          <%= submit_tag 'Create your account!', class: "btn btn-danger" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

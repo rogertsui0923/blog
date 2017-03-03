@@ -10,6 +10,13 @@
 
   <body>
     <%= render 'navbar' %>
+    <div class="container">
+      <% flash.each do |name, msg| %>
+        <% if name != 'modal' %>
+          <%= content_tag :div, msg %>
+        <% end %>
+      <% end %>
+    </div>
     <%= yield %>
   </body>
 </html>

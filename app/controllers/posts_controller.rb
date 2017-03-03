@@ -1,6 +1,9 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :find_post, only: [:show, :edit, :update, :destroy]
+  before_action :authorize, only: [:edit, :update, :destroy]
   def index
-    @posts = Post.all
+    @posts = Post.all.order(:created_at)
   end
 
   def new
@@ -8,37 +11,50 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new strong_params
-    # temporary before implement drop dropdown
-    @post.category = Category.last
+    @post = Post.new post_params
+    @post.user = current_user
     if @post.save
-      redirect_to post_path(@post)
+      redirect_to post_path(@post), notice: 'Post created!'
     else
+      flash.now[:alert] = 'Please fix errors!'
       render 'new'
     end
   end
 
   def show
-    @post = Post.find params[:id]
     @comment = Comment.new
-    @category = Category.find @post.category_id
   end
 
   def edit
-
   end
 
   def update
-
+    if @post.update post_params
+      redirect_to post_path(@post), notice: 'Post updated!'
+    else
+      flash.now[:alert] = 'Please fix errors!'
+      render 'edit'
+    end
   end
 
   def destroy
-
+    @post.destroy
+    redirect_to root_path, notice: 'Post deleted!'
   end
 
   private
 
-  def strong_params
-    params.require(:post).permit(:title, :body)
+  def post_params
+    params.require(:post).permit(:title, :body, :category_id)
+  end
+
+  def find_post
+    @post = Post.find params[:id]
+  end
+
+  def authorize
+    if !can?(:manage, @post)
+      redirect_to root_path, alert: 'Not authorized!'
+    end
   end
 end

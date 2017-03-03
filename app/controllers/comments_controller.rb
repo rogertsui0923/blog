@@ -1,38 +1,27 @@
 class CommentsController < ApplicationController
-  def index
-
-  end
-
-  def new
-
-  end
-
+  before_action :authenticate_user
   def create
     comment_params = params.require(:comment).permit(:body)
     @comment = Comment.new comment_params
     @post = Post.find params[:post_id]
     @comment.post = @post
+    @comment.user = current_user
     if @comment.save
-      redirect_to post_path(params[:post_id])
+      redirect_to post_path(params[:post_id]), notice: 'Comment created!'
     else
-      render 'post/show'
+      flash.now[:alert] = 'Please fix errors!'
+      render 'posts/show'
     end
   end
 
-  def edit
-
-  end
-
-  def show
-
-  end
-
-  def update
-
-  end
-
   def destroy
-
+    comment = Comment.find params[:id]
+    post = comment.post
+    if !can?(:manage, comment)
+      redirect_to post_path(post), alert: 'Not authorized!'
+      return
+    end
+    comment.destroy
+    redirect_to post_path(post), notice: 'Comment deleted!'
   end
-
 end

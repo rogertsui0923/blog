@@ -9,8 +9,8 @@
     </a></span>
   </div>
   <h3><%= link_to post.title, post_path(post.id) %></h3>
-  <p><%= post.body[0..50] %>...</p>
+  <p><%= post.body.truncate(150) %></p>
   <br>
-  <p><a href="#">Roger Tsui</a></p>
-  <p><%= post.created_at %></p>
+  <p><a href="#"><%= post.user.full_name %></a></p>
+  <p><%= post.created_at.strftime("Posted on %m/%d/%Y") %></p>
 </div>
