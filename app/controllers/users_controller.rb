@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user, only: [:edit, :update]
-  before_action :set_user, only: [:edit, :update]
-  before_action :authorize, only: [:edit, :update]
+  before_action :set_user, only: [:show, :edit, :update]
+  before_action :authorize, only: [:show, :edit, :update]
   def new
     @user = User.new
   end
@@ -18,13 +18,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @liked_posts = @user.liked_posts
+  end
+
   def edit
-    @user = User.find params[:id]
   end
 
   def update
     user_params = params().require(:user).permit(:first_name, :last_name, :email)
-    @user = User.find params[:id]
     if @user.update user_params
       redirect_to root_path, notice: 'User information updated!'
     else

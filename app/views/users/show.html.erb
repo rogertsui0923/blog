@@ -1,0 +1,14 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-10 col-xs-push-1 col-sm-6 col-sm-push-3">
+      <div class="text-center">
+        <h1>Liked Posts</h1>
+      </div>
+      <ul>
+        <% @liked_posts.each do |post| %>
+        <li><%= link_to post.title, post_path(post) %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

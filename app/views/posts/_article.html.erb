@@ -1,9 +1,20 @@
 <div class="thumbnail">
   <%= link_to image_tag("flower.jpg"), post_path(post.id) %>
   <div style="font-size:20px">
-    <span><a href="#">
-      <i class="fa fa-heart" role="button" aria-hidden="true"></i>
-    </a> 123 </span>
+    <span>
+      <% if signed_in? %>
+        <% if post.liked_by(current_user) %>
+          <%= link_to like_path(post.like(current_user)), method: :delete do %>
+            <i class="fa fa-heart" role="button" aria-hidden="true"></i>
+          <% end %>
+        <% else %>
+          <%= link_to post_likes_path(post), method: :post do %>
+            <i class="fa fa-heart-o" role="button" aria-hidden="true"></i>
+          <% end %>
+        <% end %>
+      <% end %>
+      <%= post.number_of_likes %>
+    </span>
     <span class="pull-right"><a href="#">
       <i class="fa fa-bookmark" role="button" aria-hidden="true"></i>
     </a></span>

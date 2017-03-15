@@ -12,9 +12,10 @@
     <%= render 'navbar' %>
     <div class="container">
       <% flash.each do |name, msg| %>
-        <% if name != 'modal' %>
+        <% if name == 'notice' %>
           <%= content_tag :div, msg, class: 'alert alert-success' %>
-          <%# TODO: alert-success and alert-danger %>
+        <% elsif name == 'alert' %>
+          <%= content_tag :div, msg, class: 'alert alert-danger' %>
         <% end %>
       <% end %>
     </div>

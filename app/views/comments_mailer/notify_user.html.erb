@@ -1,0 +1,6 @@
+<h1><%= @comment.user.first_name %> has commented on your post: <%= @post.title %></h1>
+<p><%= @comment.user.first_name %>'s comment: <%= @comment.body %></p>
+<p>To visit your post, click <%= link_to 'here', post_url(@post) %></p>
+<br>
+<p>Regards,</p>
+<p>Roger's Blog team</p>
